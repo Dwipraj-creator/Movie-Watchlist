@@ -341,7 +341,7 @@ const Favourites = () => {
                       ♥
                     </button>
 
-                    <div className="absolute inset-0 z-0 flex items-center justify-center bg-black/70 opacity-0 transition group-hover:opacity-100">
+                    <div className="absolute inset-0 z-0 flex items-end justify-center bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
                       <button
                         type="button"
                         onClick={() => handleViewDetails(item)}

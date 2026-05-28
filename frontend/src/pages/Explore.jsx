@@ -296,10 +296,11 @@ const Explore = () => {
                   {isFavorite(e) ? "♥" : "♡"}
                 </button>
 
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
                   <button
+                    type="button"
                     onClick={() => handleViewDetails(e)}
-                    className="bg-red-600 px-5 py-3 rounded-xl font-bold hover:bg-red-700"
+                    className="rounded-full bg-red-600 px-5 py-3 font-bold text-white shadow-lg shadow-red-600/20 transition hover:bg-red-700"
                   >
                     View Details
                   </button>
