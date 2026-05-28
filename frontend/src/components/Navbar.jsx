@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import {
-  Film,
-  Home,
-  Compass,
-  Heart,
-  Info,
-  Menu,
-  X,
-} from "lucide-react";
+import { Film, Home, Compass, Heart, Info, Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navStyle = ({ isActive }) =>
     `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition duration-300
@@ -22,26 +24,26 @@ const Navbar = () => {
     }`;
 
   return (
-    <nav className="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-50 shadow-lg">
-
+    <nav
+      className={`sticky top-0 z-50 border-b transition duration-300 ${
+        scrolled
+          ? "border-white/10 bg-black/20 shadow-none backdrop-blur-xl"
+          : "border-zinc-800 bg-zinc-950/90 shadow-lg"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 py-4">
-
         <div className="flex items-center justify-between">
-
           {/* Logo */}
           <div className="flex items-center gap-3">
-
             <Film className="text-red-500 w-8 h-8" />
 
             <h1 className="text-2xl font-bold text-white tracking-wide">
               MovieWatch
             </h1>
-
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-4">
-
             <NavLink to="/" className={navStyle}>
               <Home size={18} />
               Home
@@ -61,7 +63,6 @@ const Navbar = () => {
               <Info size={18} />
               About
             </NavLink>
-
           </div>
 
           {/* Mobile Button */}
@@ -71,13 +72,11 @@ const Navbar = () => {
           >
             {menuOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
-
         </div>
 
         {/* Mobile Menu */}
         {menuOpen && (
           <div className="md:hidden mt-5 bg-zinc-900 border border-zinc-800 rounded-2xl p-5 flex flex-col gap-3 shadow-xl">
-
             <NavLink
               to="/"
               className={navStyle}
@@ -113,10 +112,8 @@ const Navbar = () => {
               <Info size={18} />
               About
             </NavLink>
-
           </div>
         )}
-
       </div>
     </nav>
   );
